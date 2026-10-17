@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
         
         /* Banner Section */
@@ -129,6 +130,7 @@
         
         /* Features Section */
         .features { 
+            position: relative;
             min-height: 100vh; 
             padding: 6rem 2rem; 
             background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 100%); 
@@ -211,6 +213,7 @@
         
         /* Showcase Section */
         .showcase { 
+            position: relative;
             min-height: 100vh; 
             padding: 6rem 2rem; 
             background: linear-gradient(180deg, #1a0a2e 0%, #0a0a1a 100%); 
@@ -371,6 +374,7 @@
         
         /* About Section */
         .about { 
+            position: relative;
             min-height: 100vh; 
             padding: 6rem 2rem; 
             background: #0a0a1a; 
@@ -384,6 +388,7 @@
 
         /* Community Section */
         .community {
+            position: relative;
             min-height: 100vh;
             padding: 6rem 2rem;
             background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
@@ -481,7 +486,7 @@
 
         /* Video Section */
         .video-section {
-            padding: 6rem 2rem 4rem;
+            padding: 6rem 0 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -530,7 +535,7 @@
             border: none;
         }
         /* Footer */
-        footer { padding: 3rem 2rem; background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 100%); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        footer { align-self: stretch; margin-top: auto; padding: 3rem 2rem; background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 100%); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, #ff6ec4, #7873f5); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
         .social-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
         .social-link { color: #a0a0c0; text-decoration: none; font-size: 1.5rem; transition: transform 0.3s ease, filter 0.3s ease; display: inline-block; }
@@ -540,6 +545,21 @@
         .social-link.youtube:hover { filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.7)); color: #ff0000; }
         .social-link.facebook:hover { filter: drop-shadow(0 0 12px rgba(66, 103, 178, 0.7)); color: #4267b2; }
         footer p { color: #666; font-size: 0.9rem; }
+        
+        /* Desktop: fit the video + footer into one viewport */
+        @media (min-width: 1024px) {
+            .video-section {
+                min-height: 100vh;
+                justify-content: center;
+            }
+            .video-section footer {
+                padding: 2rem;
+            }
+            .video-wrapper {
+                /* cap width so the 16:9 video leaves room for title + footer within 100vh */
+                max-width: min(960px, calc((100vh - 560px) * 16 / 9));
+            }
+        }
         
         /* ---------- Mobile showcase cards ---------- */
         @media (max-width: 768px) {
@@ -606,7 +626,7 @@
             </div>
             <h1 class="tagline">StockGamer</h1>
             <p id="hero-subtitle" class="subtitle" data-translate="hero_subtitle"></p>
-            <a href="#features" id="cta-button" class="cta-button" data-translate="cta_button">Get Started</a>
+            <a href="#features" id="cta-button" class="cta-button" data-translate="cta_button" onclick="const t=document.querySelector('#features');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">Get Started</a>
         </div>
     </section>
 
@@ -657,9 +677,16 @@
                 </div>
             </div>
         </div>
+
+        <!-- Golden Scroll Indicator -->
+        <div class="scroll-indicator" onclick="const t=document.querySelector('#vision');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+            <svg class="scroll-arrow" viewBox="0 0 24 24">
+                <path d="M12 16L6 10h12l-6 6z"></path>
+            </svg>
+        </div>
     </section>
     <!-- Showcase Section -->
-    <section class="showcase">
+    <section class="showcase" id="vision">
         <h2 class="section-title" data-translate="section_showcase_title">Our Vision</h2>
         <div class="showcase-grid">
             <!-- Card 1: Retro Vibes, Modern Tech -->
@@ -727,20 +754,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- Golden Scroll Indicator -->
+        <div class="scroll-indicator" onclick="const t=document.querySelector('#about');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+            <svg class="scroll-arrow" viewBox="0 0 24 24">
+                <path d="M12 16L6 10h12l-6 6z"></path>
+            </svg>
+        </div>
     </section>
 
     <!-- About Section -->
-    <section class="about">
+    <section class="about" id="about">
         <div class="about-content">
             <h2 class="section-title" data-translate="section_about_title">About StockGamer</h2>
             <p data-translate="about_p1">StockGamer is revolutionizing how people approach stock trading by combining the addictive elements of gaming with serious financial education. Whether you're a complete beginner or an experienced trader, our platform makes learning about stocks engaging and enjoyable.</p>
             <p data-translate="about_p2">Join thousands of gamers who are leveling up their financial literacy while having fun. Start your journey today!</p>
             <a href="https://linktr.ee/stockgamer" target="_blank" rel="noopener" class="cta-button" data-translate="cta_about">Join the Community</a>
         </div>
+
+        <!-- Golden Scroll Indicator -->
+        <div class="scroll-indicator" onclick="const t=document.querySelector('#community');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+            <svg class="scroll-arrow" viewBox="0 0 24 24">
+                <path d="M12 16L6 10h12l-6 6z"></path>
+            </svg>
+        </div>
     </section>
 
     <!-- Community Section -->
-    <section class="community">
+    <section class="community" id="community">
         <h2 class="community-title" data-translate="community_title">Join Our Community</h2>
         <p class="community-subtitle" data-translate="community_subtitle">Connect with StockGamer across all platforms. Stay updated, watch streams, and be part of the revolution!</p>
         <div class="community-grid">
@@ -774,8 +815,16 @@
             </a>
         </div>
 
-        <!-- Video Section -->
-        <section class="video-section">
+        <!-- Golden Scroll Indicator -->
+        <div class="scroll-indicator" onclick="const t=document.querySelector('#video');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+            <svg class="scroll-arrow" viewBox="0 0 24 24">
+                <path d="M12 16L6 10h12l-6 6z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section" id="video">
             <h2 class="video-section-title" data-translate="video_title">Watch My Latest Content</h2>
             <p class="video-section-subtitle" data-translate="video_subtitle">Catch my latest trading breakdowns, market analysis, and gaming moments!</p>
             <div class="video-wrapper">
@@ -790,13 +839,10 @@
                     </iframe>
                 </div>
             </div>
-        </section>
 
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-logo">StockGamer</div>
+            <!-- Footer -->
+            <footer>
+                <div class="footer-logo">StockGamer</div>
         <div class="social-links">
             <a href="https://www.instagram.com/stockgamertv/" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="Instagram">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -812,7 +858,8 @@
             </a>
         </div>
         <p data-translate="footer">© 2025 StockGamer. All rights reserved. | Gaming meets Finance.</p>
-    </footer>
+            </footer>
+        </section>
     
     <!-- Language Translation Script -->
     <script src="translate.js?v=2"></script>
