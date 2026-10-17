@@ -1,4 +1,4 @@
-﻿<html lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,6 +114,17 @@
             height: 100%;
             object-fit: cover; 
             display: block; 
+        }
+        
+        /* Mobile Banner - Use image8 with 20px right shift */
+        @media (max-width: 768px) {
+            .banner img { 
+                display: none; 
+            }
+            .banner {
+                background: url('image8.jpg') center / cover no-repeat;
+                background-position: calc(50% + 20px) center;
+            }
         }
         
         /* Features Section */
@@ -479,53 +490,8 @@
         .social-link.facebook:hover { filter: drop-shadow(0 0 12px rgba(66, 103, 178, 0.7)); color: #4267b2; }
         footer p { color: #666; font-size: 0.9rem; }
         
-        /* ===== Mobile Responsiveness Fixes ===== */
-
-        /* Banner mobile — show full image instead of clipping it */
         @media (max-width: 768px) {
-            .banner img { object-fit: contain; height: auto; max-height: 100vh; }
-
-            /* Hero logo constraint for small screens */
-            .logo-container img { width: 100%; padding: 0 1rem; }
-
-            /* Showcase section — proper card sizing on mobile */
-            .showcase-grid { grid-template-columns: 1fr; gap: 2rem; width: 100%; }
-            .showcase-flipper { width: calc(100% - 2rem); height: auto; min-height: 340px; max-height: none; overflow: visible; margin: 0 auto; border-radius: 20px; }
-            .showcase-item   { width: 100%; height: 100%; }
-            .showcase-front,
-            .showcase-back   { width: 100%; height: 100%; object-fit: contain; }
-            .showcase-front img { max-height: none; object-fit: cover; }
-            .showcase-back    { padding: 1.5rem; }
-
-            /* Features — prevent overflow on narrow screens */
-            .features-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .feature-card { padding: 1.25rem; margin: 0; max-width: 100%; }
-            .feature-icon { font-size: 2.5rem; }
-
-            /* Community cards — tighter spacing on narrow screens */
-            .community-grid { gap: 1.5rem; }
-        }
-
-        @media (max-width: 480px) {
-            /* Smaller phones */
-            .showcase-flipper   { min-height: 300px; width: calc(100% - 2rem); }
-            .section-title       { padding: 0 1rem; }
-
-            /* Even tighter features on very small screens */
-            .features { padding: 4rem 1rem; }
-            .feature-card h3   { font-size: 1.25rem; }
-            .feature-card p     { font-size: 0.9rem; word-break: break-word; }
-
-            /* Tighter community cards */
-            .community-card { padding: 2rem 1.25rem; }
-        }
-
-        @media (max-width: 375px) {
-            /* iPhone SE / very small devices */
-            .showcase-flipper   { min-height: 280px; width: calc(100% - 1.5rem); margin-left: 0.75rem; }
-            .feature-card       { padding: 1rem; }
-            .feature-card h3    { font-size: 1.15rem; }
-            .community-grid     { grid-template-columns: 1fr; }
+            .showcase-grid, .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
