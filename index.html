@@ -136,6 +136,7 @@
             flex-direction: column;
             align-items: center;
         }
+        .features .logo-3d-wrapper { margin-top: 3rem; }
         .logo-3d-wrapper {
             perspective: 1200px;
             display: flex;
@@ -299,6 +300,38 @@
             .showcase-caption { 
                 padding: 4rem 1rem; 
             }
+        }
+        
+        /* Desktop: 300px cards, cover image, clickable flip animation */
+        @media (min-width: 1024px) {
+            .showcase-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 1200px;
+            }
+            .showcase-flipper {
+                min-height: 0;
+                max-height: none;
+                height: 300px;
+            }
+            /* image fills the whole card */
+            .showcase-front img {
+                max-height: none;
+                height: 100%;
+                object-fit: cover;
+            }
+            /* title pinned to the bottom of the image */
+            .showcase-front .showcase-caption {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 1.4rem 1.2rem;
+                background: linear-gradient(180deg, transparent, rgba(10, 5, 25, 0.88) 70%);
+            }
+            /* keep back text fitting inside the 300px card */
+            .showcase-back { padding: 1.6rem; }
+            .back-title { font-size: 1.15rem; margin-bottom: 0.8rem; }
+            .back-description { font-size: 0.95rem; line-height: 1.6; }
         }
         
         /* Back face content */
@@ -510,7 +543,7 @@
         
         /* ---------- Mobile showcase cards ---------- */
         @media (max-width: 768px) {
-            .video-section { padding-top: 2rem; }
+            .video-section { padding: 2rem 0 0 0; }
             .showcase-grid, .features-grid { grid-template-columns: 1fr; }
 
             /* shrink the card height so the front image fills more */
@@ -597,14 +630,12 @@
                 <p data-translate="feature_3_desc">Join a vibrant community of traders and gamers. Share strategies, get insights, and grow together in the StockGamer ecosystem.</p>
             </div>
         </div>
-    </section>
 
-    <!-- 3D Spinning Logo -->
-    <section class="logo-section">
+        <!-- 3D Spinning Logo (desktop only) -->
         <div class="logo-3d-wrapper">
             <div class="logo-3d-container">
                 <div class="logo-3d-glow"></div>
-                
+
                 <!-- Front: Gaming Logo -->
                 <div class="logo-face front">
                     <img src="LOGO_Stock_Gamer.png" alt="StockGamer">
@@ -627,7 +658,6 @@
             </div>
         </div>
     </section>
-
     <!-- Showcase Section -->
     <section class="showcase">
         <h2 class="section-title" data-translate="section_showcase_title">Our Vision</h2>
@@ -785,6 +815,6 @@
     </footer>
     
     <!-- Language Translation Script -->
-    <script src="translate.js"></script>
+    <script src="translate.js?v=2"></script>
 </body>
 </html>

@@ -116,6 +116,17 @@
             display: block; 
         }
         
+        /* Mobile Banner - Use image8 with 20px right shift */
+        @media (max-width: 768px) {
+            .banner img { 
+                display: none; 
+            }
+            .banner {
+                background: url('image8.jpg') center / cover no-repeat;
+                background-position: calc(50% + 20px) center;
+            }
+        }
+        
         /* Features Section */
         .features { 
             min-height: 100vh; 
@@ -125,6 +136,7 @@
             flex-direction: column;
             align-items: center;
         }
+        .features .logo-3d-wrapper { margin-top: 3rem; }
         .logo-3d-wrapper {
             perspective: 1200px;
             display: flex;
@@ -134,8 +146,19 @@
         }
         .logo-3d-container {
             position: relative;
+            width: clamp(180px, 30vw, 360px);
+            height: clamp(180px, 30vw, 360px);
             transform-style: preserve-3d;
             animation: spin3d 12s linear infinite;
+        }
+        /* Dedicated 3D Logo Section */
+        .logo-section {
+            padding: 4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
         .logo-face {
             position: absolute;
@@ -225,7 +248,10 @@
             overflow: hidden;
         }
         .showcase-front {
+            position: absolute;
             box-shadow: 0 20px 60px rgba(120, 0, 255, 0.3);
+            display: flex;
+            flex-direction: column;
         }
         .showcase-item:hover .showcase-front {
             box-shadow: 0 30px 80px rgba(120, 0, 255, 0.5);
@@ -259,17 +285,21 @@
         /* Front face */
         .showcase-front img { 
             width: 100%; 
-            height: auto; 
             display: block; 
-            max-height: 400px; 
-            object-fit: cover; 
         }
         .showcase-caption { 
-            position: absolute; 
-            bottom: 0; left: 0; right: 0; 
-            padding: 2rem; 
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 2.5rem 1rem;
+            text-align: center;
             font-family: 'Orbitron', sans-serif; 
+        }
+
+        @media (min-width: 768px) {
+            .showcase-caption { 
+                padding: 4rem 1rem; 
+            }
         }
         
         /* Back face content */
@@ -479,8 +509,40 @@
         .social-link.facebook:hover { filter: drop-shadow(0 0 12px rgba(66, 103, 178, 0.7)); color: #4267b2; }
         footer p { color: #666; font-size: 0.9rem; }
         
+        /* ---------- Mobile showcase cards ---------- */
         @media (max-width: 768px) {
+            .video-section { padding: 2rem 0 0 0; }
             .showcase-grid, .features-grid { grid-template-columns: 1fr; }
+
+            /* shrink the card height so the front image fills more */
+            .showcase-flipper {
+                min-height: 320px;
+                max-height: 44vh;
+            }
+
+            /* let the front image render at natural size */
+            .showcase-front img {
+                width: 100%;
+                display: block;
+            }
+
+            /* compress the back-side text so it fits tightly */
+            .showcase-back {
+                padding: 1.4rem 1.6rem;
+            }
+            .back-title {
+                font-size: clamp(0.95rem, 3vw, 1.15rem);
+                margin-bottom: 0.6rem;
+            }
+            .back-description {
+                font-size: clamp(0.82rem, 2.4vw, 0.9rem);
+                line-height: 1.5;
+                margin-bottom: 0.4rem;
+            }
+            .tap-hint {
+                font-size: clamp(0.58rem, 1.8vw, 0.7rem);
+                margin-top: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -537,11 +599,11 @@
             </div>
         </div>
 
-        <!-- 3D Spinning Logo -->
+        <!-- 3D Spinning Logo (desktop only) -->
         <div class="logo-3d-wrapper">
             <div class="logo-3d-container">
                 <div class="logo-3d-glow"></div>
-                
+
                 <!-- Front: Gaming Logo -->
                 <div class="logo-face front">
                     <img src="LOGO_Stock_Gamer.png" alt="StockGamer">
@@ -564,7 +626,6 @@
             </div>
         </div>
     </section>
-
     <!-- Showcase Section -->
     <section class="showcase">
         <h2 class="section-title" data-translate="section_showcase_title">Our Vision</h2>
@@ -581,7 +642,7 @@
                     <div class="showcase-back">
                         <div class="back-title" data-translate="showcase_card_1_title_front">Retro Vibes, Modern Tech</div>
                         <p class="back-description" data-translate="showcase_card_1_desc_back">Where pixel nostalgia meets cutting-edge trading. Our retro-futuristic world blends the thrill of gaming culture with modern financial technology, creating a unique space where old-school aesthetics power next-gen market tools.</p>
-                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="9.09" y1="9.09" x2="12.91" y2="12.91"></line><line x1="12.91" y1="9.09" x2="9.09" y2="12.91"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span></span>
                     </div>
                 </div>
             </div>
@@ -597,7 +658,7 @@
                     <div class="showcase-back">
                         <div class="back-title" data-translate="showcase_card_2_title_front">Navigate the Market Grid</div>
                         <p class="back-description" data-translate="showcase_card_2_desc_back">Like navigating a neon-lit cityscape, mastering the markets requires strategy, vision, and precision. We break down complex trading concepts into actionable insights, helping you chart your course through the financial grid with confidence.</p>
-                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="9.09" y1="9.09" x2="12.91" y2="12.91"></line><line x1="12.91" y1="9.09" x2="9.09" y2="12.91"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span></span>
                     </div>
                 </div>
             </div>
@@ -613,7 +674,7 @@
                     <div class="showcase-back">
                         <div class="back-title" data-translate="showcase_card_3_title_front">Retro-Futuristic Aesthetic</div>
                         <p class="back-description" data-translate="showcase_card_3_desc_back">Gaming isn't just entertainment — it's a revolution. Our platform harnesses the immersive power of gaming to make finance education addictive. Every candlestick chart is a level, every trade a boss battle waiting to be conquered.</p>
-                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="9.09" y1="9.09" x2="12.91" y2="12.91"></line><line x1="12.91" y1="9.09" x2="9.09" y2="12.91"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span></span>
                     </div>
                 </div>
             </div>
@@ -629,7 +690,7 @@
                     <div class="showcase-back">
                         <div class="back-title" data-translate="showcase_card_4_title_front">Gaming Meets Finance</div>
                         <p class="back-description" data-translate="showcase_card_4_desc_back">Level up your financial literacy through the language gamers understand best. Through streams, tutorials, and community-driven content, we bridge the gap between gaming culture and real-world investing — because mastering markets should be as fun as mastering your favorite game.</p>
-                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="9.09" y1="9.09" x2="12.91" y2="12.91"></line><line x1="12.91" y1="9.09" x2="9.09" y2="12.91"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span></span>
                     </div>
                 </div>
             </div>
@@ -642,7 +703,7 @@
             <h2 class="section-title" data-translate="section_about_title">About StockGamer</h2>
             <p data-translate="about_p1">StockGamer is revolutionizing how people approach stock trading by combining the addictive elements of gaming with serious financial education. Whether you're a complete beginner or an experienced trader, our platform makes learning about stocks engaging and enjoyable.</p>
             <p data-translate="about_p2">Join thousands of gamers who are leveling up their financial literacy while having fun. Start your journey today!</p>
-            <a href="#" class="cta-button" data-translate="cta_about">Join the Community</a>
+            <a href="https://linktr.ee/stockgamer" target="_blank" rel="noopener" class="cta-button" data-translate="cta_about">Join the Community</a>
         </div>
     </section>
 
@@ -656,28 +717,28 @@
                 <div class="community-card-icon">📸</div>
                 <h3 data-translate="instagram_title">Instagram</h3>
                 <p data-translate="instagram_desc">Follow us for daily content, behind-the-scenes, and market insights.</p>
-                <span class="community-card-btn" data-translate="instagram_btn">FOLLOW →</span>
+                <span class="community-card-btn" data-translate="instagram_btn">FOLLOW</span>
             </a>
             <!-- Twitch -->
             <a href="https://www.twitch.tv/stockgamertv/about" target="_blank" rel="noopener noreferrer" class="community-card community-card-twitch">
                 <div class="community-card-icon">🎮</div>
                 <h3 data-translate="twitch_title">Twitch</h3>
                 <p data-translate="twitch_desc">Watch live streams, trading sessions, and interactive Q&A events.</p>
-                <span class="community-card-btn" data-translate="twitch_btn">WATCH LIVE →</span>
+                <span class="community-card-btn" data-translate="twitch_btn">WATCH LIVE</span>
             </a>
             <!-- YouTube -->
             <a href="https://www.youtube.com/@stockgamertv" target="_blank" rel="noopener noreferrer" class="community-card community-card-youtube">
                 <div class="community-card-icon">🎬</div>
                 <h3 data-translate="youtube_title">YouTube</h3>
                 <p data-translate="youtube_desc">Subscribe for tutorials, market analysis, and in-depth trading guides.</p>
-                <span class="community-card-btn" data-translate="youtube_btn">SUBSCRIBE →</span>
+                <span class="community-card-btn" data-translate="youtube_btn">SUBSCRIBE</span>
             </a>
             <!-- Facebook -->
             <a href="https://www.facebook.com/profile.php?id=61582615858599" target="_blank" rel="noopener noreferrer" class="community-card community-card-facebook">
                 <div class="community-card-icon">📘</div>
                 <h3 data-translate="facebook_title">Facebook</h3>
                 <p data-translate="facebook_desc">Join our group for discussions, updates, and community events.</p>
-                <span class="community-card-btn" data-translate="facebook_btn">JOIN →</span>
+                <span class="community-card-btn" data-translate="facebook_btn">JOIN</span>
             </a>
         </div>
 
@@ -722,6 +783,6 @@
     </footer>
     
     <!-- Language Translation Script -->
-    <script src="translate.js"></script>
+    <script src="translate.js?v=2"></script>
 </body>
 </html>
