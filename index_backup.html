@@ -1,0 +1,727 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockGamer - Where Stocks Meet Gaming</title>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* Banner Section */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #0a0a1a;
+        }
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            background: rgba(10, 10, 26, 0.7);
+            border: 2px solid rgba(120, 120, 255, 0.3);
+            border-radius: 30px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s ease;
+        }
+        .lang-toggle:hover { border-color: rgba(120, 120, 255, 0.6); }
+        .lang-btn {
+            padding: 8px 18px;
+            background: transparent;
+            border: none;
+            color: #a0a0c0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .lang-btn:hover { color: #fff; background: rgba(120, 0, 255, 0.15); }
+        .lang-btn.active {
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a0a2e 0%, #0a0a1a 50%, #0a1a2e 100%); overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(120, 0, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255, 0, 120, 0.1) 0%, transparent 50%); animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .hero-content { position: relative; z-index: 2; text-align: center; padding: 2rem; }
+        .logo-container { margin-bottom: 2rem; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .logo-container img { max-width: 600px; width: 90%; max-height: 80vh; border-radius: 20px; box-shadow: 0 20px 60px rgba(120, 0, 255, 0.3); object-fit: contain; }
+        .tagline { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; background: linear-gradient(135deg, #ff6ec4, #7873f5, #4adede); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; text-shadow: 0 0 40px rgba(120, 0, 255, 0.5); }
+        .subtitle { font-size: clamp(1rem, 2vw, 1.5rem); color: #a0a0c0; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cta-button { display: inline-block; padding: 1rem 3rem; background: linear-gradient(135deg, #ff6ec4, #7873f5); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.2rem; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(120, 0, 255, 0.4); }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(120, 0, 255, 0.6); }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-15px); }
+            60% { transform: translateX(-50%) translateY(-7px); }
+        }
+        
+        .scroll-arrow {
+            width: 50px;
+            height: 50px;
+            fill: none;
+            stroke: #ffd700;
+            stroke-width: 3;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        }
+        
+        /* Banner Section */
+        .banner { 
+            width: 100%; 
+            height: 100vh; 
+            overflow: hidden; 
+            position: relative; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a1a;
+        }
+        .banner img { 
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            display: block; 
+        }
+        
+        /* Features Section */
+        .features { 
+            min-height: 100vh; 
+            padding: 6rem 2rem; 
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo-3d-wrapper {
+            perspective: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .logo-3d-container {
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spin3d 12s linear infinite;
+        }
+        .logo-face {
+            position: absolute;
+            width: clamp(180px, 30vw, 360px);
+            height: clamp(180px, 30vw, 360px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-face img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(120, 0, 255, 0.6))
+                    drop-shadow(0 0 60px rgba(255, 110, 196, 0.4));
+        }
+        .logo-face.front  { transform: translateZ(clamp(80px, 14vw, 160px)); }
+        .logo-face.right  { transform: rotateY(90deg)   translateZ(clamp(80px, 14vw, 160px)); }
+        .logo-face.back   { transform: rotateY(180deg)  translateZ(clamp(80px, 14vw, 160px)); }
+        .logo-face.left   { transform: rotateY(-90deg)  translateZ(clamp(80px, 14vw, 160px)); }
+        
+        /* Glow ring behind each face */
+        .logo-3d-glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 120%; height: 120%;
+            transform: translate(-50%, -50%) translateZ(-30px);
+            background: radial-gradient(circle, rgba(120,0,255,0.18) 0%, transparent 65%);
+            pointer-events: none;
+            animation: glowPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) translateZ(-20px) scale(1); }
+            50%      { opacity: 1;    transform: translate(-50%, -50%) translateZ(-20px) scale(1.12); }
+        }
+
+        @keyframes spin3d {
+            from { transform: rotateY(0deg); }
+            to   { transform: rotateY(360deg); }
+        }
+
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 4vw, 3rem); text-align: center; margin-bottom: 4rem; background: linear-gradient(135deg, #ff6ec4, #7873f5); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; overflow: hidden; }
+        .feature-card:hover { transform: translateY(-10px); border-color: rgba(120, 0, 255, 0.5); box-shadow: 0 12px 30px rgba(120, 0, 255, 0.2); }
+        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature-card h3 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 1rem; color: #ff6ec4; }
+        .feature-card p { color: #a0a0c0; line-height: 1.6; }
+        
+        /* Showcase Section */
+        .showcase { 
+            min-height: 100vh; 
+            padding: 6rem 2rem; 
+            background: linear-gradient(180deg, #1a0a2e 0%, #0a0a1a 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+        
+        /* Flip Card Wrapper */
+        .showcase-flipper {
+            perspective: 1200px;
+            cursor: pointer;
+            min-height: 480px;
+            max-height: clamp(360px, 42vh, 500px);
+        }
+        .showcase-item {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        .showcase-item.flipped {
+            transform: rotateY(180deg);
+        }
+        .showcase-front,
+        .showcase-back {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .showcase-front {
+            box-shadow: 0 20px 60px rgba(120, 0, 255, 0.3);
+        }
+        .showcase-item:hover .showcase-front {
+            box-shadow: 0 30px 80px rgba(120, 0, 255, 0.5);
+        }
+        .showcase-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(160deg, #1a0a2e 0%, #0d0325 40%, #1a0a2e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2.5rem;
+            border: 1px solid rgba(120, 0, 255, 0.4);
+        }
+        .showcase-back::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: 21px;
+            background: linear-gradient(135deg, rgba(255,110,196,0.4), rgba(120,0,255,0.4), rgba(74,222,206,0.4));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .showcase-back:hover::before {
+            opacity: 1;
+        }
+        .showcase-flipper.is-clicked .showcase-item.flipped .showcase-back::before {
+            opacity: 1;
+        }
+        
+        /* Front face */
+        .showcase-front img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            max-height: 400px; 
+            object-fit: cover; 
+        }
+        .showcase-caption { 
+            position: absolute; 
+            bottom: 0; left: 0; right: 0; 
+            padding: 2rem; 
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); 
+            font-family: 'Orbitron', sans-serif; 
+        }
+        
+        /* Back face content */
+        .back-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .back-description {
+            color: #c8c8e0;
+            font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+            line-height: 1.7;
+        }
+        .tap-hint {
+            display: block;
+            margin-top: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.6rem, 0.8vw, 0.75rem);
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .tap-hint-icon {
+            display: inline-block;
+            margin-left: 0.3rem;
+            animation: hintPulse 2s ease-in-out infinite;
+        }
+        @keyframes hintPulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* About Section */
+        .about { 
+            min-height: 100vh; 
+            padding: 6rem 2rem; 
+            background: #0a0a1a; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .about-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .about p { color: #a0a0c0; font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; }
+
+        /* Community Section */
+        .community {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .community-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .community-subtitle {
+            color: #a0a0c0;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 600px;
+        }
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .community-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+        .community-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            border-color: rgba(120, 0, 255, 0.5);
+            box-shadow: 0 30px 60px rgba(120, 0, 255, 0.3), 0 0 40px rgba(255, 110, 196, 0.15);
+        }
+        .community-card-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+        }
+        .community-card:hover .community-card-icon {
+            transform: scale(1.15);
+        }
+        .community-card-instagram .community-card-icon { filter: drop-shadow(0 0 20px rgba(228, 64, 95, 0.7)); }
+        .community-card-twitch .community-card-icon { filter: drop-shadow(0 0 20px rgba(145, 70, 255, 0.7)); }
+        .community-card-youtube .community-card-icon { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.7)); }
+        .community-card-facebook .community-card-icon { filter: drop-shadow(0 0 20px rgba(66, 103, 178, 0.7)); }
+        .community-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .community-card p {
+            color: #a0a0c0;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .community-card-btn {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(255, 110, 196, 0.2), rgba(120, 0, 255, 0.2));
+            border: 1px solid rgba(120, 0, 255, 0.4);
+            color: #ff6ec4;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .community-card:hover .community-card-btn {
+            background: linear-gradient(135deg, rgba(255, 110, 196, 0.4), rgba(120, 0, 255, 0.4));
+            box-shadow: 0 0 20px rgba(120, 0, 255, 0.3);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 6rem 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .video-section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .video-section-subtitle {
+            color: #a0a0c0;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+        /* Responsive Video Wrapper */
+        .video-wrapper {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(120, 0, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(120, 0, 255, 0.1);
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Footer */
+        footer { padding: 3rem 2rem; background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 100%); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, #ff6ec4, #7873f5); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
+        .social-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
+        .social-link { color: #a0a0c0; text-decoration: none; font-size: 1.5rem; transition: transform 0.3s ease, filter 0.3s ease; display: inline-block; }
+        .social-link:hover { color: #ff6ec4; transform: scale(1.2); }
+        .social-link.instagram:hover { filter: drop-shadow(0 0 12px rgba(228, 64, 95, 0.7)); color: #e4405f; }
+        .social-link.twitch:hover { filter: drop-shadow(0 0 12px rgba(145, 70, 255, 0.7)); color: #9146ff; }
+        .social-link.youtube:hover { filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.7)); color: #ff0000; }
+        .social-link.facebook:hover { filter: drop-shadow(0 0 12px rgba(66, 103, 178, 0.7)); color: #4267b2; }
+        footer p { color: #666; font-size: 0.9rem; }
+        
+        @media (max-width: 768px) {
+            .showcase-grid, .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+        <!-- Language Toggle -->
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="pl">PL</button>
+        </div>
+
+
+    <!-- Banner Section (Top) -->
+    <section class="banner" id="banner">
+        <img src="image6.jpg" alt="StockGamer Banner">
+        
+        <!-- Golden Scroll Indicator -->
+        <div class="scroll-indicator" onclick="document.getElementById('hero').scrollIntoView({behavior: 'smooth'})">
+            <svg class="scroll-arrow" viewBox="0 0 24 24">
+                <path d="M12 16L6 10h12l-6 6z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="logo-container">
+                <img src="image4.jpg" alt="StockGamer Logo">
+            </div>
+            <h1 class="tagline">StockGamer</h1>
+            <p id="hero-subtitle" class="subtitle" data-translate="hero_subtitle"></p>
+            <a href="#features" id="cta-button" class="cta-button" data-translate="cta_button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title" data-translate="section_features_title">Why Choose StockGamer?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3 data-translate="feature_1_title">Gaming Interface</h3>
+                <p data-translate="feature_1_desc">Trade stocks in a gamified environment that makes learning and earning fun. Earn rewards, unlock achievements, and compete with other traders.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 data-translate="feature_2_title">Real-Time Analytics</h3>
+                <p data-translate="feature_2_desc">Access powerful charting tools and real-time market data. Make informed decisions with our advanced analytics dashboard.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3 data-translate="feature_3_title">Community Driven</h3>
+                <p data-translate="feature_3_desc">Join a vibrant community of traders and gamers. Share strategies, get insights, and grow together in the StockGamer ecosystem.</p>
+            </div>
+        </div>
+
+        <!-- 3D Spinning Logo -->
+        <div class="logo-3d-wrapper">
+            <div class="logo-3d-container">
+                <div class="logo-3d-glow"></div>
+                
+                <!-- Front: Gaming Logo -->
+                <div class="logo-face front">
+                    <img src="LOGO_Stock_Gamer.png" alt="StockGamer">
+                </div>
+
+                <!-- Right: Gaming Logo -->
+                <div class="logo-face right">
+                    <img src="LOGO_Stock_Gamer.png" alt="StockGamer">
+                </div>
+
+                <!-- Back: Gaming Logo -->
+                <div class="logo-face back">
+                    <img src="LOGO_Stock_Gamer.png" alt="StockGamer">
+                </div>
+
+                <!-- Left: Gaming Logo -->
+                <div class="logo-face left">
+                    <img src="LOGO_Stock_Gamer.png" alt="StockGamer">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="showcase">
+        <h2 class="section-title" data-translate="section_showcase_title">Our Vision</h2>
+        <div class="showcase-grid">
+            <!-- Card 1: Retro Vibes, Modern Tech -->
+            <div class="showcase-flipper" onclick="this.classList.toggle('is-clicked'); this.querySelector('.showcase-item').classList.toggle('flipped')">
+                <div class="showcase-item">
+                    <div class="showcase-front">
+                        <img src="image2.jpg" alt="StockGamer Retro Style">
+                        <div class="showcase-caption">
+                            <h3 data-translate="showcase_card_1_title_front">Retro Vibes, Modern Tech</h3>
+                        </div>
+                    </div>
+                    <div class="showcase-back">
+                        <div class="back-title" data-translate="showcase_card_1_title_front">Retro Vibes, Modern Tech</div>
+                        <p class="back-description" data-translate="showcase_card_1_desc_back">Where pixel nostalgia meets cutting-edge trading. Our retro-futuristic world blends the thrill of gaming culture with modern financial technology, creating a unique space where old-school aesthetics power next-gen market tools.</p>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2: Navigate the Market Grid -->
+            <div class="showcase-flipper" onclick="this.classList.toggle('is-clicked'); this.querySelector('.showcase-item').classList.toggle('flipped')">
+                <div class="showcase-item">
+                    <div class="showcase-front">
+                        <img src="image5.jpg" alt="StockGamer Market Vision">
+                        <div class="showcase-caption">
+                            <h3 data-translate="showcase_card_2_title_front">Navigate the Market Grid</h3>
+                        </div>
+                    </div>
+                    <div class="showcase-back">
+                        <div class="back-title" data-translate="showcase_card_2_title_front">Navigate the Market Grid</div>
+                        <p class="back-description" data-translate="showcase_card_2_desc_back">Like navigating a neon-lit cityscape, mastering the markets requires strategy, vision, and precision. We break down complex trading concepts into actionable insights, helping you chart your course through the financial grid with confidence.</p>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3: Retro-Futuristic Aesthetic -->
+            <div class="showcase-flipper" onclick="this.classList.toggle('is-clicked'); this.querySelector('.showcase-item').classList.toggle('flipped')">
+                <div class="showcase-item">
+                    <div class="showcase-front">
+                        <img src="image3.jpg" alt="StockGamer Retro Futuristic Design">
+                        <div class="showcase-caption">
+                            <h3 data-translate="showcase_card_3_title_front">Retro-Futuristic Aesthetic</h3>
+                        </div>
+                    </div>
+                    <div class="showcase-back">
+                        <div class="back-title" data-translate="showcase_card_3_title_front">Retro-Futuristic Aesthetic</div>
+                        <p class="back-description" data-translate="showcase_card_3_desc_back">Gaming isn't just entertainment — it's a revolution. Our platform harnesses the immersive power of gaming to make finance education addictive. Every candlestick chart is a level, every trade a boss battle waiting to be conquered.</p>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4: Gaming Meets Finance -->
+            <div class="showcase-flipper" onclick="this.classList.toggle('is-clicked'); this.querySelector('.showcase-item').classList.toggle('flipped')">
+                <div class="showcase-item">
+                    <div class="showcase-front">
+                        <img src="image7.jpg" alt="StockGamer Gaming Meets Finance">
+                        <div class="showcase-caption">
+                            <h3 data-translate="showcase_card_4_title_front">Gaming Meets Finance</h3>
+                        </div>
+                    </div>
+                    <div class="showcase-back">
+                        <div class="back-title" data-translate="showcase_card_4_title_front">Gaming Meets Finance</div>
+                        <p class="back-description" data-translate="showcase_card_4_desc_back">Level up your financial literacy through the language gamers understand best. Through streams, tutorials, and community-driven content, we bridge the gap between gaming culture and real-world investing — because mastering markets should be as fun as mastering your favorite game.</p>
+                        <span class="tap-hint"><span data-translate="tap_hint">Click to flip</span> <span class="tap-hint-icon">?</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-content">
+            <h2 class="section-title" data-translate="section_about_title">About StockGamer</h2>
+            <p data-translate="about_p1">StockGamer is revolutionizing how people approach stock trading by combining the addictive elements of gaming with serious financial education. Whether you're a complete beginner or an experienced trader, our platform makes learning about stocks engaging and enjoyable.</p>
+            <p data-translate="about_p2">Join thousands of gamers who are leveling up their financial literacy while having fun. Start your journey today!</p>
+            <a href="#" class="cta-button" data-translate="cta_about">Join the Community</a>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community">
+        <h2 class="community-title" data-translate="community_title">Join Our Community</h2>
+        <p class="community-subtitle" data-translate="community_subtitle">Connect with StockGamer across all platforms. Stay updated, watch streams, and be part of the revolution!</p>
+        <div class="community-grid">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/stockgamertv/" target="_blank" rel="noopener noreferrer" class="community-card community-card-instagram">
+                <div class="community-card-icon">📸</div>
+                <h3 data-translate="instagram_title">Instagram</h3>
+                <p data-translate="instagram_desc">Follow us for daily content, behind-the-scenes, and market insights.</p>
+                <span class="community-card-btn" data-translate="instagram_btn">FOLLOW →</span>
+            </a>
+            <!-- Twitch -->
+            <a href="https://www.twitch.tv/stockgamertv/about" target="_blank" rel="noopener noreferrer" class="community-card community-card-twitch">
+                <div class="community-card-icon">🎮</div>
+                <h3 data-translate="twitch_title">Twitch</h3>
+                <p data-translate="twitch_desc">Watch live streams, trading sessions, and interactive Q&A events.</p>
+                <span class="community-card-btn" data-translate="twitch_btn">WATCH LIVE →</span>
+            </a>
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@stockgamertv" target="_blank" rel="noopener noreferrer" class="community-card community-card-youtube">
+                <div class="community-card-icon">🎬</div>
+                <h3 data-translate="youtube_title">YouTube</h3>
+                <p data-translate="youtube_desc">Subscribe for tutorials, market analysis, and in-depth trading guides.</p>
+                <span class="community-card-btn" data-translate="youtube_btn">SUBSCRIBE →</span>
+            </a>
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/profile.php?id=61582615858599" target="_blank" rel="noopener noreferrer" class="community-card community-card-facebook">
+                <div class="community-card-icon">📘</div>
+                <h3 data-translate="facebook_title">Facebook</h3>
+                <p data-translate="facebook_desc">Join our group for discussions, updates, and community events.</p>
+                <span class="community-card-btn" data-translate="facebook_btn">JOIN →</span>
+            </a>
+        </div>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <h2 class="video-section-title" data-translate="video_title">Watch My Latest Content</h2>
+            <p class="video-section-subtitle" data-translate="video_subtitle">Catch my latest trading breakdowns, market analysis, and gaming moments!</p>
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/VBssaxV5Wl4" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">StockGamer</div>
+        <div class="social-links">
+            <a href="https://www.instagram.com/stockgamertv/" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.twitch.tv/stockgamertv/about" target="_blank" rel="noopener noreferrer" class="social-link twitch" aria-label="Twitch">
+                <svg width="24" height="24" viewBox="0 0 512 512" fill="currentColor"><path d="M80,32 48,112v304h96v64h64l64-64h80L464,304V32H80zm336,256-64,64H256l-64,64V352H112V80h304z"/><rect x="320" y="143" width="48" height="129"/><rect x="208" y="143" width="48" height="129"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@stockgamertv" target="_blank" rel="noopener noreferrer" class="social-link youtube" aria-label="YouTube">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.9 31.9 0 0 0 0 12a31.9 31.9 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.9 31.9 0 0 0 24 12a31.9 31.9 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6Z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61582615858599" target="_blank" rel="noopener noreferrer" class="social-link facebook" aria-label="Facebook">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073Z"/></svg>
+            </a>
+        </div>
+        <p data-translate="footer">© 2025 StockGamer. All rights reserved. | Gaming meets Finance.</p>
+    </footer>
+    
+    <!-- Language Translation Script -->
+    <script src="translate.js"></script>
+</body>
+</html>
