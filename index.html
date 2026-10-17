@@ -236,7 +236,10 @@
             overflow: hidden;
         }
         .showcase-front {
+            position: absolute;
             box-shadow: 0 20px 60px rgba(120, 0, 255, 0.3);
+            display: flex;
+            flex-direction: column;
         }
         .showcase-item:hover .showcase-front {
             box-shadow: 0 30px 80px rgba(120, 0, 255, 0.5);
@@ -270,17 +273,21 @@
         /* Front face */
         .showcase-front img { 
             width: 100%; 
-            height: auto; 
             display: block; 
-            max-height: 400px; 
-            object-fit: cover; 
         }
         .showcase-caption { 
-            position: absolute; 
-            bottom: 0; left: 0; right: 0; 
-            padding: 2rem; 
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 2.5rem 1rem;
+            text-align: center;
             font-family: 'Orbitron', sans-serif; 
+        }
+
+        @media (min-width: 768px) {
+            .showcase-caption { 
+                padding: 4rem 1rem; 
+            }
         }
         
         /* Back face content */
@@ -490,8 +497,40 @@
         .social-link.facebook:hover { filter: drop-shadow(0 0 12px rgba(66, 103, 178, 0.7)); color: #4267b2; }
         footer p { color: #666; font-size: 0.9rem; }
         
+        /* ---------- Mobile showcase cards ---------- */
         @media (max-width: 768px) {
+            .video-section { padding: 0; }
             .showcase-grid, .features-grid { grid-template-columns: 1fr; }
+
+            /* shrink the card height so the front image fills more */
+            .showcase-flipper {
+                min-height: 320px;
+                max-height: 44vh;
+            }
+
+            /* let the front image render at natural size */
+            .showcase-front img {
+                width: 100%;
+                display: block;
+            }
+
+            /* compress the back-side text so it fits tightly */
+            .showcase-back {
+                padding: 1.4rem 1.6rem;
+            }
+            .back-title {
+                font-size: clamp(0.95rem, 3vw, 1.15rem);
+                margin-bottom: 0.6rem;
+            }
+            .back-description {
+                font-size: clamp(0.82rem, 2.4vw, 0.9rem);
+                line-height: 1.5;
+                margin-bottom: 0.4rem;
+            }
+            .tap-hint {
+                font-size: clamp(0.58rem, 1.8vw, 0.7rem);
+                margin-top: 0.8rem;
+            }
         }
     </style>
 </head>
