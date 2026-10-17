@@ -6,7 +6,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
         
@@ -139,6 +139,18 @@
             align-items: center;
         }
         .features .logo-3d-wrapper { margin-top: 3rem; }
+        /* Desktop: keep features section content + scroll arrow within 100vh at any monitor height */
+        @media (min-width: 1024px) {
+            .features { padding: clamp(2.5rem, 6vh, 6rem) 2rem clamp(3rem, 8vh, 6rem); }
+            .features .section-title { margin-bottom: clamp(1.5rem, 4vh, 4rem); }
+            .features .logo-3d-wrapper { margin-top: 0; }
+            .features .logo-3d-container { width: clamp(180px, 34vh, 460px); height: clamp(180px, 34vh, 460px); }
+            .features .logo-face { width: clamp(180px, 34vh, 460px); height: clamp(180px, 34vh, 460px); }
+            .features .logo-face.front { transform: translateZ(clamp(90px, 17vh, 230px)); }
+            .features .logo-face.right { transform: rotateY(90deg) translateZ(clamp(90px, 17vh, 230px)); }
+            .features .logo-face.back { transform: rotateY(180deg) translateZ(clamp(90px, 17vh, 230px)); }
+            .features .logo-face.left { transform: rotateY(-90deg) translateZ(clamp(90px, 17vh, 230px)); }
+        }
         .logo-3d-wrapper {
             perspective: 1200px;
             display: flex;
@@ -548,11 +560,16 @@
         
         /* Desktop: fit the video + footer into one viewport */
         @media (min-width: 1024px) {
-            .video-section {
+            .video-block {
+                display: flex;
+                flex-direction: column;
                 min-height: 100vh;
+            }
+            .video-section {
+                flex: 1;
                 justify-content: center;
             }
-            .video-section footer {
+            .video-block footer {
                 padding: 2rem;
             }
             .video-wrapper {
@@ -563,7 +580,7 @@
         
         /* ---------- Mobile showcase cards ---------- */
         @media (max-width: 768px) {
-            .video-section { padding: 2rem 0 0 0; }
+            .video-section { padding: 2rem 1.25rem 2.5rem; }
             .showcase-grid, .features-grid { grid-template-columns: 1fr; }
 
             /* shrink the card height so the front image fills more */
@@ -626,7 +643,7 @@
             </div>
             <h1 class="tagline">StockGamer</h1>
             <p id="hero-subtitle" class="subtitle" data-translate="hero_subtitle"></p>
-            <a href="#features" id="cta-button" class="cta-button" data-translate="cta_button" onclick="const t=document.querySelector('#features');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">Get Started</a>
+            <a href="#features" id="cta-button" class="cta-button" data-translate="cta_button" onclick="document.getElementById('features').scrollIntoView({ behavior: 'smooth', block: 'start' });">Get Started</a>
         </div>
     </section>
 
@@ -679,7 +696,7 @@
         </div>
 
         <!-- Golden Scroll Indicator -->
-        <div class="scroll-indicator" onclick="const t=document.querySelector('#vision');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+        <div class="scroll-indicator" onclick="document.getElementById('vision').scrollIntoView({ behavior: 'smooth', block: 'start' });">
             <svg class="scroll-arrow" viewBox="0 0 24 24">
                 <path d="M12 16L6 10h12l-6 6z"></path>
             </svg>
@@ -756,7 +773,7 @@
         </div>
 
         <!-- Golden Scroll Indicator -->
-        <div class="scroll-indicator" onclick="const t=document.querySelector('#about');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+        <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });">
             <svg class="scroll-arrow" viewBox="0 0 24 24">
                 <path d="M12 16L6 10h12l-6 6z"></path>
             </svg>
@@ -773,7 +790,7 @@
         </div>
 
         <!-- Golden Scroll Indicator -->
-        <div class="scroll-indicator" onclick="const t=document.querySelector('#community');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+        <div class="scroll-indicator" onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth', block: 'start' });">
             <svg class="scroll-arrow" viewBox="0 0 24 24">
                 <path d="M12 16L6 10h12l-6 6z"></path>
             </svg>
@@ -816,7 +833,7 @@
         </div>
 
         <!-- Golden Scroll Indicator -->
-        <div class="scroll-indicator" onclick="const t=document.querySelector('#video');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+        <div class="scroll-indicator" onclick="document.getElementById('video').scrollIntoView({ behavior: 'smooth', block: 'start' });">
             <svg class="scroll-arrow" viewBox="0 0 24 24">
                 <path d="M12 16L6 10h12l-6 6z"></path>
             </svg>
@@ -824,6 +841,7 @@
     </section>
 
     <!-- Video Section -->
+    <div class="video-block">
     <section class="video-section" id="video">
             <h2 class="video-section-title" data-translate="video_title">Watch My Latest Content</h2>
             <p class="video-section-subtitle" data-translate="video_subtitle">Catch my latest trading breakdowns, market analysis, and gaming moments!</p>
@@ -839,9 +857,10 @@
                     </iframe>
                 </div>
             </div>
+    </section>
 
-            <!-- Footer -->
-            <footer>
+    <!-- Footer -->
+    <footer>
                 <div class="footer-logo">StockGamer</div>
         <div class="social-links">
             <a href="https://www.instagram.com/stockgamertv/" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="Instagram">
@@ -858,8 +877,8 @@
             </a>
         </div>
         <p data-translate="footer">© 2025 StockGamer. All rights reserved. | Gaming meets Finance.</p>
-            </footer>
-        </section>
+    </footer>
+    </div>
     
     <!-- Language Translation Script -->
     <script src="translate.js?v=2"></script>
