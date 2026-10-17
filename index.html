@@ -489,8 +489,8 @@
             .logo-container img { width: 100%; padding: 0 1rem; }
 
             /* Showcase section — proper card sizing on mobile */
-            .showcase-grid { gap: 2rem; }
-            .showcase-flipper { width: 100%; height: auto; min-height: 340px; max-height: none; overflow: visible; justify-self: center; }
+            .showcase-grid { grid-template-columns: 1fr; gap: 2rem; width: 100%; }
+            .showcase-flipper { width: calc(100% - 2rem); height: auto; min-height: 340px; max-height: none; overflow: visible; margin: 0 auto; border-radius: 20px; }
             .showcase-item   { width: 100%; height: 100%; }
             .showcase-front,
             .showcase-back   { width: 100%; height: 100%; object-fit: contain; }
@@ -508,7 +508,7 @@
 
         @media (max-width: 480px) {
             /* Smaller phones */
-            .showcase-flipper   { min-height: 300px; }
+            .showcase-flipper   { min-height: 300px; width: calc(100% - 2rem); }
             .section-title       { padding: 0 1rem; }
 
             /* Even tighter features on very small screens */
@@ -522,7 +522,7 @@
 
         @media (max-width: 375px) {
             /* iPhone SE / very small devices */
-            .showcase-flipper   { min-height: 280px; width: calc(100vw - 2rem); margin-left: 1rem; justify-self: auto; }
+            .showcase-flipper   { min-height: 280px; width: calc(100% - 1.5rem); margin-left: 0.75rem; }
             .feature-card       { padding: 1rem; }
             .feature-card h3    { font-size: 1.15rem; }
             .community-grid     { grid-template-columns: 1fr; }
